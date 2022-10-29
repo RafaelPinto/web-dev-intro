@@ -2,6 +2,12 @@
     box-sizing: border-box;
   }
 
+.app {
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+}
+
 .brand-header {
     display: flex;
     width: 100%;
@@ -10,4 +16,105 @@
     justify-content: center;
     align-items: center;
     padding: 30px;
+}
+
+.items-section {
+  grid-area: items;
+}
+
+.customer-name-section {
+  grid-area: customer-name;
+}
+
+.payment-section {
+  grid-area: payment;
+}
+
+.checkout-page {
+  display: grid;
+  grid-template-areas:
+    "items customer-name"
+    ". payment";
+}
+
+
+.checkout-page {
+  background-color: #efefef;
+  margin: 40px;
+}
+
+.checkout-section {
+  background-color: #ede0d4;
+  margin: 20px;
+}
+
+.checkout-section-name {
+  color: #7f4f24;
+  text-transform: uppercase;
+  padding: 15px;
+  margin-left: 6%;
+}
+
+.item-quantity {
+  grid-area: quantity;
+}
+
+.item-name {
+  grid-area: name;
+}
+
+.item-cost {
+  grid-area: cost;
+}
+
+.item-note-container {
+  grid-area: note_container;
+}
+
+.item {
+  display: grid;
+  grid-template-areas:
+    "quantity name cost"
+    ". note_container .";
+}
+
+.item {
+  border-bottom: 10px #000000;
+}
+
+.item-quantity {
+  color: black;
+  text-align: center;
+}
+
+.item-name {
+  color: black;
+  font-weight: bold;
+  text-align: left;
+}
+
+.item-cost {
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+.item-note {
+  color: #7f4f24;
+  font-weight: bold;
+}
+
+.item-note-container {
+  margin-top: 10px;
+}
+
+.item {
+  grid-template-columns: 15% 70% 15%;
+  grid-template-rows: 15% 70% 15%;
+  margin: 2%;
+  border-bottom: 3px solid #e5cbb2;
+}
+
+.item:last-child {
+  border-bottom: 0px;
 }
