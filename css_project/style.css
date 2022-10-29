@@ -34,7 +34,7 @@
   display: grid;
   grid-template-areas:
     "items customer-name"
-    ". payment";
+    "items payment";
 }
 
 
@@ -46,6 +46,7 @@
 .checkout-section {
   background-color: #ede0d4;
   margin: 20px;
+  align-self: start;
 }
 
 .checkout-section-name {
