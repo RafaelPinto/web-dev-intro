@@ -55,6 +55,7 @@
 .checkout-section-name {
   color: #7f4f24;
   text-transform: uppercase;
+  font-weight: lighter;
   padding: 15px;
   margin-left: 6%;
 }
@@ -89,23 +90,27 @@
 .item-quantity {
   color: black;
   text-align: center;
+  font-weight: lighter;
 }
 
 .item-name {
   color: black;
   font-weight: bold;
   text-align: left;
+  font-weight: lighter;
 }
 
 .item-cost {
   color: black;
   font-weight: bold;
   text-align: center;
+  font-weight: lighter;
 }
 
 .item-note {
   color: #7f4f24;
   font-weight: bold;
+  font-weight: lighter;
 }
 
 .item-note-container {
