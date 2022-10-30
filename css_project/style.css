@@ -83,10 +83,6 @@
     ". note_container .";
 }
 
-.item {
-  border-bottom: 10px #000000;
-}
-
 .item-quantity {
   color: black;
   text-align: center;
@@ -126,4 +122,27 @@
 
 .item:last-child {
   border-bottom: 0px;
+}
+
+/* Input element styles */
+
+.input-group {
+  display: inline-block;
+  position: relative;
+}
+
+.name-input {
+  border-color: #7f4f24;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.input-label {
+  background-color: #ede0d4;
+  color: #7f4f24;
+  font-size: 11px;
+  position: absolute;
+  left: 25px;
+  top: -7px;
+  padding: 0 2px;
 }
