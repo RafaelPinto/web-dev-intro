@@ -38,7 +38,6 @@
     "items payment";
 }
 
-
 .checkout-page {
   background-color: #efefef;
   margin: 40px;
@@ -126,22 +125,33 @@
 /* Input element styles */
 
 .input-group {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   position: relative;
-}
-
-.name-input {
-  border-color: #7f4f24;
-  padding: 8px;
-  border-radius: 10px;
 }
 
 .input-label {
   background-color: #ede0d4;
   color: #7f4f24;
-  font-size: 11px;
+  font-size: 16px;
   position: absolute;
-  left: 25px;
-  top: -7px;
+  left: 5%;
+  top: 5%;
   padding: 0 2px;
+}
+
+.input-text {
+  border-color: #7f4f24;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #ede0d4;
+  padding: 8px;
+  margin: 2%;
+  border-radius: 30px;
+  text-indent: 25px;
+  font-size: 14px;
+}
+
+.input-text.cvv {
+  width: 200px;
 }

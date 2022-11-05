@@ -53,11 +53,21 @@
         </div>
         <div class="checkout-section customer-name-section">
           <h2 class="checkout-section-name">Name</h2>
-          <input class="input-name">
+          <div class="input-group">
+            <label for="input-name" class="input-label">Name for order</label>
+            <input id="input-name" class="input-text" placeholder="Ford Prefect" />
+          </div>
         </div>
         <div class="checkout-section payment-section">
           <h2 class="checkout-section-name">Payment</h2>
-          <input class="input-name">
+          <div class="input-group">
+            <label for="input-ccn" class="input-label">Card number</label>
+            <input id="input-ccn" class="input-text" placeholder="1234 5678 9012 3456" />
+          </div>
+          <div class="input-group">
+            <label for="input-ccv" class="input-label">CCV number</label>
+            <input id="input-ccv" class="input-text cvv" placeholder="001" />
+          </div>
         </div>
       </div>
     </div>
