@@ -31,11 +31,21 @@
   grid-area: payment;
 }
 
+.balance-table {
+  grid-area: balance-table;
+}
+
+.place-order-bttn {
+  grid-area: button;
+}
+
 .checkout-page {
   display: grid;
   grid-template-areas:
     "items customer-name"
-    "items payment";
+    "items payment"
+    "balance-table balance-table"
+    "button button";
 }
 
 .checkout-page {
@@ -154,4 +164,24 @@
 
 .input-text.cvv {
   width: 200px;
+}
+
+.balance-table {
+  margin-top: 10%;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.balance-table tr:last-child {
+  font-weight: bold;
+}
+
+.place-order-bttn {
+  margin: 40px;
+  padding: 10px;
+  border-radius: 30px;
+  border-style:none;
+  font-size: larger;
+  background-color: #ddb892;
+  color: #494d36;
 }
