@@ -77,31 +77,33 @@ const result = {
     }
 }
 
-document
-    .querySelector(".calculator")
-    .addEventListener("click", function (event) {
-        clicked = event.target.innerText;
-        
-        if (clicked in operators) {
-            calcMemory.set(result.resultPointer.innerText, clicked);
-            calcMemory.enteringSecondNumber = true
-        };
-        if (clicked in functions) {
-            functions[clicked]();
-        };
-        if (clicked === "=") {
-            operator = calcMemory.operator
-            firstNumber = calcMemory.firstNumber;
-            secondNumber = result.resultPointer.innerText;
-            equals(operator, firstNumber, secondNumber)            
-        }
-        if (!isNaN(parseInt(clicked))) {
-            if (calcMemory.enteringSecondNumber) {
-                result.clear()
-                calcMemory.enteringSecondNumber = false
+const init = () => {
+    document
+        .querySelector(".calculator")
+        .addEventListener("click", function (event) {
+            clicked = event.target.innerText;
+            
+            if (clicked in operators) {
+                calcMemory.set(result.resultPointer.innerText, clicked);
+                calcMemory.enteringSecondNumber = true
+            };
+            if (clicked in functions) {
+                functions[clicked]();
+            };
+            if (clicked === "=") {
+                operator = calcMemory.operator
+                firstNumber = calcMemory.firstNumber;
+                secondNumber = result.resultPointer.innerText;
+                equals(operator, firstNumber, secondNumber)            
             }
-            result.update(clicked);
-        };
-    });
+            if (!isNaN(parseInt(clicked))) {
+                if (calcMemory.enteringSecondNumber) {
+                    result.clear()
+                    calcMemory.enteringSecondNumber = false
+                }
+                result.update(clicked);
+            };
+        });
+};
 
-
+init()
