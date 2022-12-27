@@ -5,8 +5,8 @@ let calcMemory = {
     operator: "None",
     enteringSecondNumber: false,
     set: function (newNumber, operator) {
-        this.firstNumber = newNumber
-        this.operator = operator
+        this.firstNumber = newNumber;
+        this.operator = operator;
     },
     clear: function () {
         this.firstNumber = "0";
@@ -17,11 +17,11 @@ let calcMemory = {
 
 const functions = {
     "C": function() {
-        calcMemory.clear()
-        result.clear()
+        calcMemory.clear();
+        result.clear();
     },
     "←": function() {
-        result.backspace()
+        result.backspace();
     },
 };
 
@@ -50,10 +50,10 @@ const operators = {
 const result = {
     resultPointer: document.querySelector(".result"),
     clear: function () {
-        this.resultPointer.innerText = "0"
+        this.resultPointer.innerText = "0";
     },
     set: function (newNumber) {
-        this.resultPointer.innerText = newNumber
+        this.resultPointer.innerText = newNumber;
     },
     update: function (newDigit) {
         currentText = this.resultPointer.innerText
@@ -68,11 +68,11 @@ const result = {
         }    
     },
     backspace: function () {
-        currentText = this.resultPointer.innerText
+        currentText = this.resultPointer.innerText;
         if (currentText.length > 1) {
-            this.resultPointer.innerText = currentText.slice(0, -1)
+            this.resultPointer.innerText = currentText.slice(0, -1);
         } else {
-            this.resultPointer.innerText = "0"
+            this.resultPointer.innerText = "0";
         }
     }
 }
@@ -85,21 +85,21 @@ const init = () => {
             
             if (clicked in operators) {
                 calcMemory.set(result.resultPointer.innerText, clicked);
-                calcMemory.enteringSecondNumber = true
+                calcMemory.enteringSecondNumber = true;
             };
             if (clicked in functions) {
                 functions[clicked]();
             };
             if (clicked === "=") {
-                operator = calcMemory.operator
+                let operator = calcMemory.operator
                 firstNumber = calcMemory.firstNumber;
                 secondNumber = result.resultPointer.innerText;
-                equals(operator, firstNumber, secondNumber)            
+                equals(operator, firstNumber, secondNumber);            
             }
             if (!isNaN(parseInt(clicked))) {
                 if (calcMemory.enteringSecondNumber) {
-                    result.clear()
-                    calcMemory.enteringSecondNumber = false
+                    result.clear();
+                    calcMemory.enteringSecondNumber = false;
                 }
                 result.update(clicked);
             };
