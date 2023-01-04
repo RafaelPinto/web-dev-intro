@@ -101,39 +101,14 @@ function setWord(wordTag, word) {
     };
 }
 
-function updateLetterInWord(key, wordTag) {
-    const word = getWord(wordTag);
-    // console.log(word)
-
-    // console.log(word.length)
-    // if (word.length < 5) {
-
-    // }
-
-    // for (const child of wordElem.children) {
-    //     const letterText = child.innerText
-    //     if (letterText === "") {
-    //         child.innerText = key
-    //         break
-    //     }
-    // };
-}
-
 function handleKey(event) {
     key = event.key;
     if (!isKeyValid(key)) {
         event.preventDefault();
     } else {
-        handleValidKey(key) // Enter, backspace, or new character
+        handleValidKey(key) // Enter, backspace, or letter
     };
-    // if (!isLetter(key)) {
-    //     event.preventDefault();
-    // } else {
-    //     console.log(key)
-    //     updateLetterInWord(key, ".first-word");
-    // };
 }
-
 
 function init() {
     document
