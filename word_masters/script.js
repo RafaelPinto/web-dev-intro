@@ -96,8 +96,9 @@ function setWord(wordTag, word) {
     const wordElem = document.querySelector(wordTag);
     clearWord(wordElem);
 
+    word_upper = word.toUpperCase()
     for (let indx = 0; indx < word.length; indx++) {
-        wordElem.children[indx].innerText = word[indx];
+        wordElem.children[indx].innerText = word_upper[indx];
     };
 }
 
