@@ -49,6 +49,21 @@ function handleBackspace() {
     };
 }
 
+function handleLetter(key) {
+    if (wordTagKey in wordTags) {
+        const wordTag = wordTags[wordTagKey];
+        let word = getWord(wordTag);
+
+        if (word.length === 5) {
+            word = word.slice(0, -1) + key;
+        }
+        if (word.length < 5) {
+            word += key
+        }
+        setWord(wordTag, word)
+    }
+}
+
 function handleValidKey(key) {
     if (isEnter(key)) {
         handleEnterKey();
@@ -57,7 +72,9 @@ function handleValidKey(key) {
         handleBackspace();
     };
 
-    // TODO: handleLetter
+    if (isLetter(key)) {
+        handleLetter(key)
+    }
 }
 
 function getWord(wordTag) {
@@ -80,7 +97,6 @@ function setWord(wordTag, word) {
     clearWord(wordElem);
 
     for (let indx = 0; indx < word.length; indx++) {
-        console.log(indx);
         wordElem.children[indx].innerText = word[indx];
     };
 }
@@ -108,7 +124,6 @@ function handleKey(event) {
     if (!isKeyValid(key)) {
         event.preventDefault();
     } else {
-        console.log(key)
         handleValidKey(key) // Enter, backspace, or new character
     };
     // if (!isLetter(key)) {
