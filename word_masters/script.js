@@ -96,6 +96,11 @@ function handleEnterKey() {
 
         // Move to the next word
         wordTagKey += 1;
+
+        if (wordTagKey > 6) {
+            alert(`You lose! The word of the day is: ${wordOfTheDay}`)
+
+        }
     };
 };
 
