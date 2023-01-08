@@ -1,3 +1,5 @@
+const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
+
 const wordTags = {
     1: ".first-word",
     2: ".second-word",
@@ -5,39 +7,97 @@ const wordTags = {
     4: ".fourth-word",
     5: ".fifth-word",
     6: ".sixth-word",
-}
+};
 
-let wordTagKey = 1
+let wordTagKey = 1;
+
+let wordOfTheDay = "";
+
+async function getWordOfTheDay() {
+    const promise = await fetch(WORD_URL)
+    const processedResponse = await promise.json();
+    return processedResponse.word.toUpperCase();
+};
+
+function setWordOfTheDay() {
+    getWordOfTheDay().then(function (word) {
+        wordOfTheDay = word;
+    }
+    );
+};
 
 function isKeyValid(key) {
-    return isLetter(key) || isBackspace(key) || isEnter(key)
-}
+    return isLetter(key) || isBackspace(key) || isEnter(key);
+};
 
 function isBackspace(key) {
-    return key === "Backspace"
-}
+    return key === "Backspace";
+};
 
 function isEnter(key) {
-    return key === "Enter"
-}
+    return key === "Enter";
+};
 
 function isLetter(letter) {
-    return /^[a-zA-Z]$/.test(letter)
+    return /^[a-zA-Z]$/.test(letter);
+};
+
+function findGreenLetters(word) {
+    let letterColors = Array();
+    let lettersOfTheDay = Array.from(wordOfTheDay);
+    for (let indx = 0; indx < word.length; indx++) {
+        if (word[indx] === wordOfTheDay[indx]) {
+            letterColors.push("darkgreen");
+            lettersOfTheDay[indx] = null
+        } else {
+            letterColors.push(word[indx]);
+        }
+    }
+    return [letterColors, lettersOfTheDay]
+};
+
+function findYelllowGreyLetters(letterColors, lettersOfTheDay) {
+    for (let indx = 0; indx < letterColors.length; indx++) {
+        if (letterColors[indx] === "darkgreen") {
+            continue;
+        }
+        const indxLOD = lettersOfTheDay.indexOf(letterColors[indx]);
+        // The guessed letter is in the word of the day, but in a different place
+        if (indxLOD > -1) {
+            letterColors[indx] = "goldenrod";
+            lettersOfTheDay[indxLOD] = null;
+        // The guessed letter is not in the word of the day    
+        } else {
+            letterColors[indx] = "grey";
+        };
+    }
+    return letterColors
+}
+
+function findLetterColors(word) {
+    let [letterColors, lettersOfTheDay] = findGreenLetters(word)
+    return findYelllowGreyLetters(letterColors, lettersOfTheDay)
 }
 
 function handleEnterKey() {
+    // Is this a valid attemp
     if (wordTagKey in wordTags) {
         const wordTag = wordTags[wordTagKey];
         const word = getWord(wordTag);
 
-        if (word.length === 5) {
-            console.log("Word len is 5");
-            // TODO: isWordOfTheDay?
+        // Enter was hit before 5 letters were typed
+        if (word.length != 5) {
+            return
+        }
 
-            wordTagKey += 1;
-        };
+        console.log(wordOfTheDay);
+        colors = findLetterColors(word);
+        setLetterColors(wordTag, colors);
+
+        // Move to the next word
+        wordTagKey += 1;
     };
-}
+};
 
 function handleBackspace() {
     if (wordTagKey in wordTags) {
@@ -47,7 +107,7 @@ function handleBackspace() {
         word = word.slice(0, -1);
         setWord(wordTag, word);
     };
-}
+};
 
 function handleLetter(key) {
     if (wordTagKey in wordTags) {
@@ -56,13 +116,13 @@ function handleLetter(key) {
 
         if (word.length === 5) {
             word = word.slice(0, -1) + key;
-        }
+        };
         if (word.length < 5) {
             word += key
-        }
-        setWord(wordTag, word)
+        };
+        setWord(wordTag, word);
     }
-}
+};
 
 function handleValidKey(key) {
     if (isEnter(key)) {
@@ -73,9 +133,9 @@ function handleValidKey(key) {
     };
 
     if (isLetter(key)) {
-        handleLetter(key)
-    }
-}
+        handleLetter(key);
+    };
+};
 
 function getWord(wordTag) {
     const wordElem = document.querySelector(wordTag);
@@ -83,24 +143,32 @@ function getWord(wordTag) {
     for (const child of wordElem.children) {
         letters.push(child.innerText);
     };
-    return letters.join("")
-}
+    return letters.join("");
+};
 
 function clearWord(wordElem) {
     for (const child of wordElem.children) {
         child.innerText = "";
     };
-}
+};
 
 function setWord(wordTag, word) {
     const wordElem = document.querySelector(wordTag);
     clearWord(wordElem);
 
-    word_upper = word.toUpperCase()
+    const word_upper = word.toUpperCase()
     for (let indx = 0; indx < word.length; indx++) {
         wordElem.children[indx].innerText = word_upper[indx];
     };
-}
+};
+
+function setLetterColors(wordTag, colors) {
+    const wordElem = document.querySelector(wordTag);
+
+    for (let indx = 0; indx < colors.length; indx++) {
+        wordElem.children[indx].style.backgroundColor = colors[indx];
+    };
+};
 
 function handleKey(event) {
     key = event.key;
@@ -109,15 +177,18 @@ function handleKey(event) {
     } else {
         handleValidKey(key) // Enter, backspace, or letter
     };
-}
+};
 
 function init() {
+
+    setWordOfTheDay();
+
     document
         .querySelector(".all-words")
         .addEventListener("keydown", function (event) {
             handleKey(event);
         
     });
-}
+};
 
 init();
