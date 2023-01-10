@@ -79,6 +79,20 @@ function findLetterColors(word) {
     return findYelllowGreyLetters(letterColors, lettersOfTheDay)
 }
 
+function isWordWOD(colors) {
+    let ret = false
+    let green_count = 0;
+    colors.forEach(color => {
+        if (color === "darkgreen") {
+            green_count += 1;
+        }
+    if (green_count === 5) {
+        ret = true
+    }
+    });
+    return ret
+}
+
 function handleEnterKey() {
     // Is this a valid attemp
     if (wordTagKey in wordTags) {
@@ -90,16 +104,21 @@ function handleEnterKey() {
             return
         }
 
+        // TODO: Check if it is a valid word by posting it to the API
+
         console.log(wordOfTheDay);
         colors = findLetterColors(word);
         setLetterColors(wordTag, colors);
 
-        // Move to the next word
-        wordTagKey += 1;
-
-        if (wordTagKey > 6) {
-            alert(`You lose! The word of the day is: ${wordOfTheDay}`)
-
+        if (isWordWOD(colors)) {
+            alert("You Win!");
+            wordTagKey = 7;
+        } else {
+            // Move to the next word
+            wordTagKey += 1;
+            if (wordTagKey > 6) {
+                alert(`You lose! The word of the day is: ${wordOfTheDay}`)
+            }
         }
     };
 };
