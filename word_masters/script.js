@@ -1,4 +1,5 @@
 const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
+const VALIDATE_URL = "https://words.dev-apis.com/validate-word";
 
 const wordTags = {
     1: ".first-word",
@@ -25,6 +26,14 @@ function setWordOfTheDay() {
     }
     );
 };
+
+async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data)
+    });
+    return response.json();
+}
 
 function isKeyValid(key) {
     return isLetter(key) || isBackspace(key) || isEnter(key);
@@ -93,6 +102,37 @@ function isWordWOD(colors) {
     return ret
 }
 
+function handleValidWord(wordTag, word) {
+    colors = findLetterColors(word);
+    setLetterColors(wordTag, colors);
+
+    if (isWordWOD(colors)) {
+        alert("You Win!");
+        wordTagKey = 7;
+    } else {
+        // Move to the next word
+        wordTagKey += 1;
+        if (wordTagKey > 6) {
+            alert(`You lose! The word of the day is: ${wordOfTheDay}`)
+        }
+    }
+}
+
+function validateWord(wordTag, word) {
+    postData(url=VALIDATE_URL,  { "word": word })
+        .then((data) => {
+            const isValid = data["validWord"]
+
+            console.log(wordOfTheDay)
+            if (isValid) {
+                handleValidWord(wordTag, word)
+            } else {
+                console.log("Invalid word");
+                // TODO: handle invalid word
+            }
+        })
+}
+
 function handleEnterKey() {
     // Is this a valid attemp
     if (wordTagKey in wordTags) {
@@ -104,23 +144,8 @@ function handleEnterKey() {
             return
         }
 
-        // TODO: Check if it is a valid word by posting it to the API
-
-        console.log(wordOfTheDay);
-        colors = findLetterColors(word);
-        setLetterColors(wordTag, colors);
-
-        if (isWordWOD(colors)) {
-            alert("You Win!");
-            wordTagKey = 7;
-        } else {
-            // Move to the next word
-            wordTagKey += 1;
-            if (wordTagKey > 6) {
-                alert(`You lose! The word of the day is: ${wordOfTheDay}`)
-            }
+        validateWord(wordTag, word)
         }
-    };
 };
 
 function handleBackspace() {
@@ -205,6 +230,7 @@ function handleKey(event) {
 
 function init() {
 
+    // TODO: Move this to the start of the process that depend (await) on the WOD
     setWordOfTheDay();
 
     document
