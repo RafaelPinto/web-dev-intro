@@ -118,6 +118,17 @@ function handleValidWord(wordTag, word) {
     }
 }
 
+function handleInvalidWord(wordTag, word) {
+    const wordElem = document.querySelector(wordTag);
+
+    for (let indx = 0; indx < word.length; indx++) {
+        wordElem.children[indx].animate(
+            [{borderColor: "rgb(255, 0, 0)"}],
+            {duration: 1000, easing: "linear"})
+            .play()
+    }
+}
+
 function validateWord(wordTag, word) {
     postData(url=VALIDATE_URL,  { "word": word })
         .then((data) => {
@@ -128,7 +139,7 @@ function validateWord(wordTag, word) {
                 handleValidWord(wordTag, word)
             } else {
                 console.log("Invalid word");
-                // TODO: handle invalid word
+                handleInvalidWord(wordTag, word)
             }
         })
 }
