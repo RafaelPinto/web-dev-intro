@@ -88,6 +88,26 @@ function findLetterColors(word) {
     return findYelllowGreyLetters(letterColors, lettersOfTheDay)
 }
 
+function addWaitAnimation() {
+    const spinner = document.querySelector(".wait-spinner");
+    
+    console.log(spinner.innerText)
+    console.log("Adding hour glass")
+    spinner.innerText = "🍥";
+    spinner.animate(
+        [{transform: "rotate(360deg)"}],
+        {
+            duration:900,
+            easing: "linear",
+            iterations: Infinity,
+        });
+}
+
+function removeWaitAnimation() {
+    const spinner = document.querySelector(".wait-spinner");
+    spinner.innerText = "";
+}
+
 function isWordWOD(colors) {
     let ret = false
     let green_count = 0;
@@ -141,6 +161,7 @@ function validateWord(wordTag, word) {
                 console.log("Invalid word");
                 handleInvalidWord(wordTag, word)
             }
+            removeWaitAnimation();
         })
 }
 
@@ -155,7 +176,8 @@ function handleEnterKey() {
             return
         }
 
-        validateWord(wordTag, word)
+        addWaitAnimation();
+        validateWord(wordTag, word);
         }
 };
 

@@ -8,6 +8,19 @@
   border-bottom: 3px solid black;
 }
 
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.wait-spinner {
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+}
+
 .all-words {
   display: grid;
   flex-direction: column;
