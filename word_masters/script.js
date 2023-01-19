@@ -91,11 +91,12 @@ function findLetterColors(word) {
 function addWaitAnimation() {
     const spinner = document.querySelector(".wait-spinner");
     
-    console.log(spinner.innerText)
-    console.log("Adding hour glass")
     spinner.innerText = "🍥";
     spinner.animate(
-        [{transform: "rotate(360deg)"}],
+        [
+            {transform: "rotate(0deg)"},
+            {transform: "rotate(360deg)"},
+        ],
         {
             duration:900,
             easing: "linear",
@@ -154,6 +155,8 @@ function validateWord(wordTag, word) {
         .then((data) => {
             const isValid = data["validWord"]
 
+            removeWaitAnimation();
+
             console.log(wordOfTheDay)
             if (isValid) {
                 handleValidWord(wordTag, word)
@@ -161,7 +164,6 @@ function validateWord(wordTag, word) {
                 console.log("Invalid word");
                 handleInvalidWord(wordTag, word)
             }
-            removeWaitAnimation();
         })
 }
 
