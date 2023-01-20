@@ -251,6 +251,7 @@ function setLetterColors(wordTag, colors) {
 
     for (let indx = 0; indx < colors.length; indx++) {
         wordElem.children[indx].style.backgroundColor = colors[indx];
+        wordElem.children[indx].style.color = "white"
     };
 };
 
