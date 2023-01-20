@@ -81,6 +81,29 @@ function findLetterColors(word) {
     return findYelllowGreyLetters(letterColors, lettersOfTheDay)
 }
 
+function addWinAnimation() {
+    const title = document.querySelector(".title");
+    title.animate(
+        [
+            {color: "rgb(255, 0, 0)"},
+            {color: "rgb(255, 127, 0)"},
+            {color: "rgb(255, 255, 0)"},
+            {color: "rgb(127, 255, 0)"},
+            {color: "rgb(0, 255, 0)"},
+            {color: "rgb(0, 255, 127)"},
+            {color: "rgb(0, 255, 255)"},
+            {color: "rgb(0, 127, 255)"},
+            {color: "rgb(127, 0, 255)"},
+            {color: "rgb(255, 0, 255)"},
+            {color: "rgb(255, 0, 127)"}
+        ],
+        {
+            duration:4000,
+            easing: "linear",
+            iterations: Infinity,
+        });
+}
+
 function addWaitAnimation() {
     const spinner = document.querySelector(".wait-spinner");
     
@@ -123,6 +146,7 @@ function handleValidWord(wordTag, word) {
     if (isWordWOD(colors)) {
         alert("You Win!");
         wordTagKey = 7;
+        addWinAnimation()
     } else {
         // Move to the next word
         wordTagKey += 1;
