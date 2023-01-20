@@ -20,13 +20,6 @@ async function getWordOfTheDay() {
     return processedResponse.word.toUpperCase();
 };
 
-function setWordOfTheDay() {
-    getWordOfTheDay().then(function (word) {
-        wordOfTheDay = word;
-    }
-    );
-};
-
 async function postData(url = '', data = {}) {
     const response = await fetch(url, {
         method: 'POST',
@@ -157,11 +150,9 @@ function validateWord(wordTag, word) {
 
             removeWaitAnimation();
 
-            console.log(wordOfTheDay)
             if (isValid) {
                 handleValidWord(wordTag, word)
             } else {
-                console.log("Invalid word");
                 handleInvalidWord(wordTag, word)
             }
         })
@@ -265,16 +256,18 @@ function handleKey(event) {
 };
 
 function init() {
-
-    // TODO: Move this to the start of the process that depend (await) on the WOD
-    setWordOfTheDay();
-
-    document
+    getWordOfTheDay()
+    .then(function (word) {
+        wordOfTheDay = word;
+    })
+    .then(
+        document
         .querySelector(".all-words")
         .addEventListener("keydown", function (event) {
             handleKey(event);
         
-    });
+        })
+    )
 };
 
 init();
